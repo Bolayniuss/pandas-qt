@@ -1,3 +1,6 @@
+import sys
+sys.path += ".."
+
 """set the sip version, cause pandas-qt uses version 2 by default"""
 import sip
 sip.setapi('QString', 2)

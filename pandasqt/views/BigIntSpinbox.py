@@ -4,9 +4,9 @@
 @author: Matthias Ludwig - Datalyze Solutions
 """
 
-from pandasqt.compat import Qt, QtCore, QtGui
+from pandasqt.compat import Qt, QtCore, QtGui, QtWidgets
 
-class BigIntSpinbox(QtGui.QAbstractSpinBox):
+class BigIntSpinbox(QtWidgets.QAbstractSpinBox):
     """Custom spinbox for very big integers (like numpy.int64 and uint64)
 
     Attributes:
@@ -31,7 +31,7 @@ class BigIntSpinbox(QtGui.QAbstractSpinBox):
         rx = QtCore.QRegExp("[0-9]\\d{0,20}")
         validator = QtGui.QRegExpValidator(rx, self)
 
-        self._lineEdit = QtGui.QLineEdit(self)
+        self._lineEdit = QtWidgets.QLineEdit(self)
         self._lineEdit.setText('0')
         self._lineEdit.setValidator(validator)
         self.setLineEdit(self._lineEdit)

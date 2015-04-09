@@ -1,4 +1,4 @@
-from pandasqt.compat import QtCore, QtGui, Qt, Slot, Signal
+from pandasqt.compat import QtCore, QtGui, QtWidgets, Qt, Slot, Signal
 
 from pandasqt.models.DataFrameModel import DataFrameModel
 from pandasqt.views.EditDialogs import AddAttributesDialog, RemoveAttributesDialog
@@ -9,7 +9,7 @@ except AttributeError:
     def _fromUtf8(s):
         return s
 
-class DataTableWidget(QtGui.QWidget):
+class DataTableWidget(QtWidgets.QWidget):
     """A Custom widget with a TableView and a toolbar.
 
     This widget shall display all `DataFrameModels` and
@@ -33,41 +33,41 @@ class DataTableWidget(QtGui.QWidget):
         """Initalizes the Uuser Interface with all sub widgets.
 
         """
-        self.gridLayout = QtGui.QGridLayout(self)
+        self.gridLayout = QtWidgets.QGridLayout(self)
 
-        self.buttonFrame = QtGui.QFrame(self)
+        self.buttonFrame = QtWidgets.QFrame(self)
         self.buttonFrame.setMinimumSize(QtCore.QSize(250, 50))
         self.buttonFrame.setMaximumSize(QtCore.QSize(250, 50))
-        self.buttonFrame.setFrameShape(QtGui.QFrame.NoFrame)
+        self.buttonFrame.setFrameShape(QtWidgets.QFrame.NoFrame)
 
-        self.buttonFrameLayout = QtGui.QGridLayout(self.buttonFrame)
+        self.buttonFrameLayout = QtWidgets.QGridLayout(self.buttonFrame)
         self.buttonFrameLayout.setContentsMargins(0, 6, 0, 6)
 
-        self.editButton = QtGui.QToolButton(self.buttonFrame)
+        self.editButton = QtWidgets.QToolButton(self.buttonFrame)
         self.editButton.setObjectName('editbutton')
         icon = QtGui.QIcon(QtGui.QPixmap(_fromUtf8(':/icons/document-edit.png')))
 
         self.editButton.setIcon(icon)
 
-        self.addColumnButton = QtGui.QToolButton(self.buttonFrame)
+        self.addColumnButton = QtWidgets.QToolButton(self.buttonFrame)
         self.addColumnButton.setObjectName('addcolumnbutton')
         icon = QtGui.QIcon(QtGui.QPixmap(_fromUtf8(':/icons/edit-table-insert-column-right.png')))
 
         self.addColumnButton.setIcon(icon)
 
-        self.addRowButton = QtGui.QToolButton(self.buttonFrame)
+        self.addRowButton = QtWidgets.QToolButton(self.buttonFrame)
         self.addRowButton.setObjectName('addrowbutton')
         icon = QtGui.QIcon(QtGui.QPixmap(_fromUtf8(':/icons/edit-table-insert-row-below.png')))
 
         self.addRowButton.setIcon(icon)
 
-        self.removeColumnButton = QtGui.QToolButton(self.buttonFrame)
+        self.removeColumnButton = QtWidgets.QToolButton(self.buttonFrame)
         self.removeColumnButton.setObjectName('removecolumnbutton')
         icon = QtGui.QIcon(QtGui.QPixmap(_fromUtf8(':/icons/edit-table-delete-column.png')))
 
         self.removeColumnButton.setIcon(icon)
 
-        self.removeRowButton = QtGui.QToolButton(self.buttonFrame)
+        self.removeRowButton = QtWidgets.QToolButton(self.buttonFrame)
         self.removeRowButton.setObjectName('removerowbutton')
         icon = QtGui.QIcon(QtGui.QPixmap(_fromUtf8(':/icons/edit-table-delete-row.png')))
 
@@ -85,7 +85,7 @@ class DataTableWidget(QtGui.QWidget):
         for button in self.buttons[1:]:
             button.setEnabled(False)
 
-        self.tableView = QtGui.QTableView(self)
+        self.tableView = QtWidgets.QTableView(self)
         self.tableView.setAlternatingRowColors(True)
         self.tableView.setSortingEnabled(True)
 

@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.append("..")
+
 import sip
 sip.setapi('QString', 2)
 sip.setapi('QVariant', 2)
 
-from pandasqt.compat import QtCore, QtGui, Qt, Slot, Signal
+from pandasqt.compat import QtCore, QtGui, QtWidgets, Qt, Slot, Signal
 
 import sys
 import pandas
@@ -19,7 +22,7 @@ from pandasqt.views.DataTableView import DataTableWidget
 from pandasqt.views.CustomDelegates import createDelegate, DtypeComboDelegate
 from util import getCsvData, getRandomData
 
-class TestWidget(QtGui.QWidget):
+class TestWidget(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super(TestWidget, self).__init__(parent)
@@ -33,16 +36,16 @@ class TestWidget(QtGui.QWidget):
         # self.dataTableView.setSortingEnabled(True)
         # self.dataTableView.setAlternatingRowColors(True)
 
-        self.dataListView = QtGui.QListView(self)
+        self.dataListView = QtWidgets.QListView(self)
         self.dataListView.setAlternatingRowColors(True)
 
-        self.dataComboBox = QtGui.QComboBox(self)
+        self.dataComboBox = QtWidgets.QComboBox(self)
 
         # make combobox to choose the model column for dataComboBox and dataListView
-        self.chooseColumnComboBox = QtGui.QComboBox(self)
+        self.chooseColumnComboBox = QtWidgets.QComboBox(self)
 
-        self.buttonCsvData = QtGui.QPushButton("load csv data")
-        self.buttonRandomData = QtGui.QPushButton("load random data")
+        self.buttonCsvData = QtWidgets.QPushButton("load csv data")
+        self.buttonRandomData = QtWidgets.QPushButton("load random data")
         importDialog = CSVImportDialog(self)
         importDialog.load.connect(self.updateModel)
         self.buttonCsvData.clicked.connect(lambda: importDialog.show())
@@ -50,47 +53,47 @@ class TestWidget(QtGui.QWidget):
 
         self.exportDialog = CSVExportDialog(self)
 
-        self.buttonCSVExport = QtGui.QPushButton("export to csv")
+        self.buttonCSVExport = QtWidgets.QPushButton("export to csv")
         self.buttonCSVExport.clicked.connect(self._exportModel)
-        self.buttonLayout = QtGui.QHBoxLayout()
+        self.buttonLayout = QtWidgets.QHBoxLayout()
         self.buttonLayout.addWidget(self.buttonCsvData)
         self.buttonLayout.addWidget(self.buttonCSVExport)
         self.buttonLayout.addWidget(self.buttonRandomData)
 
-        self.mainLayout = QtGui.QVBoxLayout()
+        self.mainLayout = QtWidgets.QVBoxLayout()
         self.setLayout(self.mainLayout)
         self.mainLayout.addLayout(self.buttonLayout)
 
         self.mainLayout.addWidget(self.dataTableView)
 
-        self.spinbox = QtGui.QSpinBox()
+        self.spinbox = QtWidgets.QSpinBox()
         self.mainLayout.addWidget(self.spinbox)
         self.spinbox.setMaximum(99999999999)
         self.spinbox.setValue(99999999999)
 
-        self.rightLayout = QtGui.QVBoxLayout()
-        self.chooseColumLayout = QtGui.QHBoxLayout()
+        self.rightLayout = QtWidgets.QVBoxLayout()
+        self.chooseColumLayout = QtWidgets.QHBoxLayout()
         self.mainLayout.addLayout(self.rightLayout)
         self.rightLayout.addLayout(self.chooseColumLayout)
-        self.chooseColumLayout.addWidget(QtGui.QLabel("Choose column:"))
+        self.chooseColumLayout.addWidget(QtWidgets.QLabel("Choose column:"))
         self.chooseColumLayout.addWidget(self.chooseColumnComboBox)
         self.rightLayout.addWidget(self.dataListView)
         self.rightLayout.addWidget(self.dataComboBox)
 
-        self.tableViewColumnDtypes = QtGui.QTableView(self)
-        self.rightLayout.addWidget(QtGui.QLabel('dtypes'))
+        self.tableViewColumnDtypes = QtWidgets.QTableView(self)
+        self.rightLayout.addWidget(QtWidgets.QLabel('dtypes'))
         self.rightLayout.addWidget(self.tableViewColumnDtypes)
-        self.buttonGoToColumn = QtGui.QPushButton("go to column")
+        self.buttonGoToColumn = QtWidgets.QPushButton("go to column")
         self.rightLayout.addWidget(self.buttonGoToColumn)
         self.buttonGoToColumn.clicked.connect(self.goToColumn)
 
-        self.buttonSetFilter = QtGui.QPushButton("set filter")
+        self.buttonSetFilter = QtWidgets.QPushButton("set filter")
         self.rightLayout.addWidget(self.buttonSetFilter)
         self.buttonSetFilter.clicked.connect(self.setFilter)
-        self.buttonClearFilter = QtGui.QPushButton("clear filter")
+        self.buttonClearFilter = QtWidgets.QPushButton("clear filter")
         self.rightLayout.addWidget(self.buttonClearFilter)
         self.buttonClearFilter.clicked.connect(self.clearFilter)
-        self.lineEditFilterCondition = QtGui.QLineEdit("freeSearch('am')")
+        self.lineEditFilterCondition = QtWidgets.QLineEdit("freeSearch('am')")
         self.rightLayout.addWidget(self.lineEditFilterCondition)
 
         self.chooseColumnComboBox.currentIndexChanged.connect(self.setModelColumn)
@@ -177,7 +180,7 @@ class TestWidget(QtGui.QWidget):
 
 if __name__ == '__main__':
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     widget = TestWidget()
     widget.show()
 
